@@ -19,8 +19,8 @@ EN_US_CONTENT = "\n".join(
         "",
     ]
 )
-ZH_CN_RELPATH = "GregTech.lang"
-ZH_CN_CONTENT = "\n".join(
+JA_JP_RELPATH = "GregTech.lang"
+JA_JP_CONTENT = "\n".join(
     [
         "# Configuration file",
         "",
@@ -31,7 +31,7 @@ ZH_CN_CONTENT = "\n".join(
         "",
         "",
         "languagefile {",
-        "    S:test=测试",
+        "    S:test=テスト",
         "}",
         "",
     ]
@@ -44,34 +44,34 @@ def en_us_filetype_gt_lang() -> FiletypeGTLang:
 
 
 @pytest.fixture(scope="module")
-def zh_cn_filetype_gt_lang() -> FiletypeGTLang:
-    return FiletypeGTLang(ZH_CN_RELPATH, ZH_CN_CONTENT, Language.zh_CN)
+def ja_jp_filetype_gt_lang() -> FiletypeGTLang:
+    return FiletypeGTLang(JA_JP_RELPATH, JA_JP_CONTENT, Language.ja_JP)
 
 
-def test__get_relpath(en_us_filetype_gt_lang: FiletypeGTLang, zh_cn_filetype_gt_lang: FiletypeGTLang) -> None:
+def test__get_relpath(en_us_filetype_gt_lang: FiletypeGTLang, ja_jp_filetype_gt_lang: FiletypeGTLang) -> None:
     assert en_us_filetype_gt_lang.relpath == EN_US_RELPATH
-    assert zh_cn_filetype_gt_lang.relpath == ZH_CN_RELPATH
+    assert ja_jp_filetype_gt_lang.relpath == JA_JP_RELPATH
 
 
-def test__get_content(en_us_filetype_gt_lang: FiletypeGTLang, zh_cn_filetype_gt_lang: FiletypeGTLang) -> None:
+def test__get_content(en_us_filetype_gt_lang: FiletypeGTLang, ja_jp_filetype_gt_lang: FiletypeGTLang) -> None:
     assert en_us_filetype_gt_lang.content == EN_US_CONTENT
-    assert zh_cn_filetype_gt_lang.content == ZH_CN_CONTENT
+    assert ja_jp_filetype_gt_lang.content == JA_JP_CONTENT
 
 
-def test__get_properties(en_us_filetype_gt_lang: FiletypeGTLang, zh_cn_filetype_gt_lang: FiletypeGTLang) -> None:
+def test__get_properties(en_us_filetype_gt_lang: FiletypeGTLang, ja_jp_filetype_gt_lang: FiletypeGTLang) -> None:
     assert en_us_filetype_gt_lang.properties == {
         "gt-lang|    S:test": Property("gt-lang|    S:test", "test", "    S:test=test", 107, 111),
     }
-    assert zh_cn_filetype_gt_lang.properties == {
-        "gt-lang|    S:test": Property("gt-lang|    S:test", "测试", "    S:test=测试", 127, 129),
+    assert ja_jp_filetype_gt_lang.properties == {
+        "gt-lang|    S:test": Property("gt-lang|    S:test", "テスト", "    S:test=テスト", 127, 130),
     }
 
 
-def test_get_en_us_relpath(en_us_filetype_gt_lang: FiletypeGTLang, zh_cn_filetype_gt_lang: FiletypeGTLang) -> None:
+def test_get_en_us_relpath(en_us_filetype_gt_lang: FiletypeGTLang, ja_jp_filetype_gt_lang: FiletypeGTLang) -> None:
     assert en_us_filetype_gt_lang.get_en_us_relpath() == EN_US_RELPATH
-    assert zh_cn_filetype_gt_lang.get_en_us_relpath() == EN_US_RELPATH
+    assert ja_jp_filetype_gt_lang.get_en_us_relpath() == EN_US_RELPATH
 
 
-def test_get_zh_cn_relpath(en_us_filetype_gt_lang: FiletypeGTLang, zh_cn_filetype_gt_lang: FiletypeGTLang) -> None:
-    assert en_us_filetype_gt_lang.get_zh_cn_relpath() == ZH_CN_RELPATH
-    assert zh_cn_filetype_gt_lang.get_zh_cn_relpath() == ZH_CN_RELPATH
+def test_get_ja_jp_relpath(en_us_filetype_gt_lang: FiletypeGTLang, ja_jp_filetype_gt_lang: FiletypeGTLang) -> None:
+    assert en_us_filetype_gt_lang.get_ja_jp_relpath() == JA_JP_RELPATH
+    assert ja_jp_filetype_gt_lang.get_ja_jp_relpath() == JA_JP_RELPATH

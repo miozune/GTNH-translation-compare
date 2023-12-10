@@ -39,9 +39,9 @@ class FiletypeLang(Filetype):
     def get_en_us_relpath(self) -> str:
         if self._language == Language.en_US:
             return self._relpath
-        return self._relpath.replace("zh_CN", "en_US")
+        return self._relpath.replace("ja_JP", "en_US")
 
-    def get_zh_cn_relpath(self) -> str:
-        if self._language == Language.zh_CN:
+    def get_ja_jp_relpath(self) -> str:
+        if self._language == Language.ja_JP:
             return self._relpath
-        return self._relpath.replace("en_US", "zh_CN")
+        return self._relpath.replace("en_US", "ja_JP")

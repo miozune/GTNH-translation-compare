@@ -48,7 +48,7 @@ class FiletypeGTLang(Filetype):
             return self._relpath
         return self._relpath.replace("GregTech", "GregTech_US")
 
-    def get_zh_cn_relpath(self) -> str:
-        if self._language == Language.zh_CN:
+    def get_ja_jp_relpath(self) -> str:
+        if self._language == Language.ja_JP:
             return self._relpath
         return self._relpath.replace("GregTech_US", "GregTech")

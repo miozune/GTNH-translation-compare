@@ -42,7 +42,7 @@ def to_paratranz_file(
     file: Filetype,
 ) -> ParatranzFile:
     paratranz_file = File()
-    paratranz_file.name = file.get_zh_cn_relpath() + ".json"
+    paratranz_file.name = file.get_ja_jp_relpath() + ".json"
     json_content: JsonItems = [JsonItem(key=p.key, original=p.value, context=p.full) for p in file.properties.values()]
     paratranz_file_extra_properties: Properties = {
         k: Property(key=p.key, start=p.start, end=p.end) for k, p in file.properties.items()
@@ -51,7 +51,7 @@ def to_paratranz_file(
         original=file.content,
         properties=paratranz_file_extra_properties,
         en_us_relpath=file.get_en_us_relpath(),
-        zh_cn_relpath=file.get_zh_cn_relpath(),
+        ja_jp_relpath=file.get_ja_jp_relpath(),
     )
     logger.info("to_paratranz_file: {}", paratranz_file.name)
     return ParatranzFile(paratranz_file, paratranz_file_extra, json_content)
@@ -78,7 +78,7 @@ def to_translation_file(paratranz_file: File, paratranz_file_strings: list[Strin
     properties: list[tuple[str, Property]] = [(k, v) for k, v in file_extra.properties.items()]
     properties.sort(key=sort_key, reverse=True)
 
-    is_script = file_extra.zh_cn_relpath.startswith("scripts/")
+    is_script = file_extra.ja_jp_relpath.startswith("scripts/")
 
     for k, p in properties:
         if k not in json_items_map:
@@ -90,6 +90,6 @@ def to_translation_file(paratranz_file: File, paratranz_file_strings: list[Strin
                 translation = "<BR>".join([to_unicode(p) for p in translation.split("<BR>")])
             content = content[: p.start] + translation + content[p.end :]
         if is_script:
-            content = content.replace('val _I18N_Lang = "en_US";', 'val _I18N_Lang = "zh_CN";')
-    logger.info("to_translation_file: {}", file_extra.zh_cn_relpath)
-    return TranslationFile(file_extra.zh_cn_relpath, content)
+            content = content.replace('val _I18N_Lang = "en_US";', 'val _I18N_Lang = "ja_JP";')
+    logger.info("to_translation_file: {}", file_extra.ja_jp_relpath)
+    return TranslationFile(file_extra.ja_jp_relpath, content)

@@ -37,5 +37,5 @@ class Filetype(metaclass=ABCMeta):
         pass
 
     @abstractmethod
-    def get_zh_cn_relpath(self) -> str:
+    def get_ja_jp_relpath(self) -> str:
         pass

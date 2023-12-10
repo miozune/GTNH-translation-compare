@@ -21,9 +21,9 @@ from paratranz_client.client import AuthenticatedClient
 
 GTNH_REPO = "https://github.com/GTNewHorizons/GT-New-Horizons-Modpack"
 DEFAULT_QUESTS_LANG_TEMPLATE_REL_PATH = "config/txloader/load/betterquesting/lang/template.lang"
-DEFAULT_QUESTS_LANG_ZH_CN_REL_PATH = "config/txloader/load/betterquesting/lang/zh_CN.lang"
+DEFAULT_QUESTS_LANG_JA_JP_REL_PATH = "config/txloader/load/betterquesting/lang/ja_JP.lang"
 GT_LANG_EN_US_REL_PATH = "GregTech_US.lang"
-GT_LANG_ZH_CN_REL_PATH = "GregTech.lang"
+GT_LANG_JA_JP_REL_PATH = "GregTech.lang"
 
 ParatranzFilenameFilter: TypeAlias = Callable[[str], bool]
 AfterToTranslationFileCallback: TypeAlias = Callable[[TranslationFile], None]
@@ -105,12 +105,9 @@ class Action:
     def __commit(repo: str, paths: list[str], message: str, issue: object) -> None:
         porcelain.add(repo, paths)  # type: ignore[no-untyped-call]
         commit_message = message
-        if issue is not None:
-            commit_message += f"\n\nclosed #{issue}"
         porcelain.commit(  # type: ignore[no-untyped-call]
             repo,
             message=commit_message,
-            author="MuXiu1997 <muxiu1997@gmail.com>",
         )
 
     @staticmethod
@@ -172,18 +169,18 @@ class Action:
         if res.status_code != 200:
             raise ValueError(f"Failed to get quest book file from {qb_lang_file_url}")
         qb_lang_file = FiletypeLang(
-            relpath=DEFAULT_QUESTS_LANG_ZH_CN_REL_PATH, content=res.text, language=Language.en_US
+            relpath=DEFAULT_QUESTS_LANG_JA_JP_REL_PATH, content=res.text, language=Language.en_US
         )
         qb_paratranz_file = to_paratranz_file(qb_lang_file)
         self.client.upload_file(qb_paratranz_file)
 
     def paratranz_to_quest_book(self, repo_path: Optional[str] = None, issue: Optional[str] = None) -> None:
-        filter_: ParatranzFilenameFilter = lambda name: name == DEFAULT_QUESTS_LANG_ZH_CN_REL_PATH + ".json"
+        filter_: ParatranzFilenameFilter = lambda name: name == DEFAULT_QUESTS_LANG_JA_JP_REL_PATH + ".json"
         self.__paratranz_to_translation(
             filter_,
             None,
             ValueError("No quest book file found"),
-            "[自动化] 更新 任务书",
+            "[自動化] クエストを更新",
             repo_path,
             issue,
         )
@@ -205,8 +202,8 @@ class Action:
             return any(
                 [
                     name.endswith(".lang" + ".json")
-                    and name != DEFAULT_QUESTS_LANG_ZH_CN_REL_PATH + ".json"
-                    and name != GT_LANG_ZH_CN_REL_PATH + ".json",
+                    and name != DEFAULT_QUESTS_LANG_JA_JP_REL_PATH + ".json"
+                    and name != GT_LANG_JA_JP_REL_PATH + ".json",
                     name.endswith(".zs" + ".json"),
                 ]
             )
@@ -215,7 +212,7 @@ class Action:
             filter_,
             None,
             ValueError("No lang or zs file found"),
-            "[自动化] 更新 语言文件 + 脚本",
+            "[自動化] 言語ファイルとスクリプトを更新",
             repo_path,
             issue,
         )
@@ -226,7 +223,7 @@ class Action:
     def gt_lang_to_paratranz(self, gt_lang_url: str) -> None:
         res = requests.get(gt_lang_url)
         gt_lang_file = FiletypeGTLang(
-            relpath=GT_LANG_ZH_CN_REL_PATH,
+            relpath=GT_LANG_JA_JP_REL_PATH,
             content=ensure_lf(res.text),
             language=Language.en_US,
         )
@@ -234,7 +231,7 @@ class Action:
         self.client.upload_file(gt_paratranz_file)
 
     def paratranz_to_gt_lang(self, repo_path: Optional[str] = None, issue: Optional[str] = None) -> None:
-        filter_: ParatranzFilenameFilter = lambda name: name == GT_LANG_ZH_CN_REL_PATH + ".json"
+        filter_: ParatranzFilenameFilter = lambda name: name == GT_LANG_JA_JP_REL_PATH + ".json"
 
         def after_to_translation_file_callback(translation_file: TranslationFile) -> None:
             translation_file.content = translation_file.content.replace(
@@ -245,7 +242,7 @@ class Action:
             filter_,
             after_to_translation_file_callback,
             ValueError("No gt lang file found"),
-            "[自动化] 更新 GT 语言文件",
+            "[自動化] GTの言語ファイルを更新",
             repo_path,
             issue,
         )

@@ -27,7 +27,7 @@ class FileExtraSchema(Schema):
     original = fields.String()
     properties = fields.Dict(fields.String(), fields.Nested(PropertySchema()))
     en_us_relpath = fields.String()
-    zh_cn_relpath = fields.String()
+    ja_jp_relpath = fields.String()
 
     @post_load
     def to_file_extra(self, data: Any, **_: Any) -> "FileExtra":
@@ -35,8 +35,8 @@ class FileExtraSchema(Schema):
 
 
 class FileExtra:
-    def __init__(self, original: str, properties: Properties, en_us_relpath: str, zh_cn_relpath: str):
+    def __init__(self, original: str, properties: Properties, en_us_relpath: str, ja_jp_relpath: str):
         self.original = original
         self.properties = properties
         self.en_us_relpath = en_us_relpath
-        self.zh_cn_relpath = zh_cn_relpath
+        self.ja_jp_relpath = ja_jp_relpath

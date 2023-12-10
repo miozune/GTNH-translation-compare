@@ -48,5 +48,5 @@ def test_get_en_us_relpath(filetype_script: FiletypeScript) -> None:
     assert filetype_script.get_en_us_relpath() == RELPATH
 
 
-def test_get_zh_cn_relpath(filetype_script: FiletypeScript) -> None:
-    assert filetype_script.get_zh_cn_relpath() == RELPATH
+def test_get_ja_jp_relpath(filetype_script: FiletypeScript) -> None:
+    assert filetype_script.get_ja_jp_relpath() == RELPATH
