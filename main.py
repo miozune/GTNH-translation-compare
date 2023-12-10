@@ -19,7 +19,7 @@ from gtnh_translation_compare.utils.file import ensure_lf
 from gtnh_translation_compare.utils.github_action import set_output_and_print
 from paratranz_client.client import AuthenticatedClient
 
-GTNH_REPO = "https://github.com/GTNewHorizons/GT-New-Horizons-Modpack"
+GTNH_REPO = "https://raw.githubusercontent.com/GTNewHorizons/GT-New-Horizons-Modpack"
 DEFAULT_QUESTS_LANG_TEMPLATE_REL_PATH = "config/txloader/load/betterquesting/lang/template.lang"
 DEFAULT_QUESTS_LANG_JA_JP_REL_PATH = "config/txloader/load/betterquesting/lang/ja_JP.lang"
 GT_LANG_EN_US_REL_PATH = "GregTech_US.lang"
@@ -164,7 +164,7 @@ class Action:
     def quest_book_to_paratranz(self, commit_sha: Optional[str] = None) -> None:
         if commit_sha is None or commit_sha == "":
             commit_sha = "master"
-        qb_lang_file_url = f"{GTNH_REPO}/raw/{commit_sha}/{DEFAULT_QUESTS_LANG_TEMPLATE_REL_PATH}"
+        qb_lang_file_url = f"{GTNH_REPO}/{commit_sha}/{DEFAULT_QUESTS_LANG_TEMPLATE_REL_PATH}"
         res = requests.get(qb_lang_file_url)
         if res.status_code != 200:
             raise ValueError(f"Failed to get quest book file from {qb_lang_file_url}")
